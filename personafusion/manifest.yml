@@ -1,7 +1,7 @@
 applications:
 - disk_quota: 1024M
-  host: talent-manager
-  name: talent-manager
+  host: talent-manager-gs
+  name: talent-manager-gs
   path: webStarterApp.war
   domain: mybluemix.net
   instances: 1
