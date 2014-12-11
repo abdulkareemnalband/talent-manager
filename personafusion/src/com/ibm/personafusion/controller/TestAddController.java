@@ -8,33 +8,18 @@ import com.ibm.personafusion.Config;
 import com.ibm.personafusion.model.Person;
 import com.ibm.personafusion.model.Person.Role;
 
-public class TestAddController 
-{
-	String json = 	"{   \"firstName\": \"JOHN\","+
-					    "\"lastName\": \"SMITH\","+
-					    "\"role\": \"DEV\","+
-					    "\"resumeInfo\": {"+
-					        "\"techSkills\": ["+
-					            "\"skill1\","+
-					            "\"skill2\""+
-					        "],"+
-					        "\"pastEmployers\": ["+
-					           "\"Google\","+
-					            "\"IBM\""+
-					        "]"+
-					    "},"+
-					    "\"responses\": ["+
-					       "\"answer to question 1\","+
-					       "\"answer to question 2\","+
-					        "\"answer to question n\""+
-					    "],"+
-					    "\"imageUrl\": \"http://images.com\","+
-					    "\"group\": \"CANDIDATE\""+
-					"}";
-	
+public class TestAddController {
+	String json = "{   \"firstName\": \"JOHN\"," + "\"lastName\": \"SMITH\","
+			+ "\"role\": \"DEV\"," + "\"resumeInfo\": {" + "\"techSkills\": ["
+			+ "\"skill1\"," + "\"skill2\"" + "]," + "\"pastEmployers\": ["
+			+ "\"Google\"," + "\"IBM\"" + "]" + "}," + "\"responses\": ["
+			+ "\"answer to question 1\"," + "\"answer to question 2\","
+			+ "\"answer to question n\"" + "],"
+			+ "\"imageUrl\": \"http://images.com\","
+			+ "\"group\": \"CANDIDATE\"" + "}";
+
 	@Test
-	public void testFullAddWithoutDB() 
-	{
+	public void testFullAddWithoutDB() {
 		Person p = AddController.personFromRequest(json);
 		assertTrue(p != null);
 		assertTrue(p.name.equals("JOHN SMITH"));
@@ -46,10 +31,9 @@ public class TestAddController
 		assertTrue(p.group.equals("CANDIDATE"));
 		assertTrue(p.traits.size() > 50);
 	}
-	
+
 	@Test
-	public void testFullAddWithDB() 
-	{
+	public void testFullAddWithDB() {
 		Person p = AddController.personFromRequest(json);
 		Config.cc.putPerson(p);
 		Person p2 = Config.cc.getPerson("JOHN SMITH");

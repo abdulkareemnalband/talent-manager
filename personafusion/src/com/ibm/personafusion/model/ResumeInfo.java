@@ -7,30 +7,25 @@ import java.util.List;
  * Resume Info is going to not be associated with Watson API
  */
 
-public class ResumeInfo 
-{
+public class ResumeInfo {
 	List<String> techSkills;
 	List<String> pastEmployers;
-	
-	public ResumeInfo()
-	{
+
+	public ResumeInfo() {
 		this.techSkills = new ArrayList<String>();
 		this.pastEmployers = new ArrayList<String>();
 	}
-	
-	public ResumeInfo(List<String> techSkills, List<String> pastEmployers)
-	{
+
+	public ResumeInfo(List<String> techSkills, List<String> pastEmployers) {
 		this.techSkills = techSkills;
 		this.pastEmployers = pastEmployers;
 	}
-	
-	void addTechSkill(String skill)
-	{
+
+	void addTechSkill(String skill) {
 		this.techSkills.add(skill);
 	}
-	
-	void addPastEmployer(String pastEmployer)
-	{
+
+	void addPastEmployer(String pastEmployer) {
 		this.pastEmployers.add(pastEmployer);
 	}
 }

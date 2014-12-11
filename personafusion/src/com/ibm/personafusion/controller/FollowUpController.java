@@ -64,7 +64,7 @@ public class FollowUpController {
 		String type = "application/json";
 		URL u = new URL("https://mobile.ng.bluemix.net/data/rest/v1/apps/"
 				+ Config.MOBILE_DATA_APP_ID + "/injections?classname=Item");
-		
+
 		System.out.println(rawData);
 		byte[] bytes = rawData.getBytes("UTF-8");
 		HttpsURLConnection conn = (HttpsURLConnection) u.openConnection();
@@ -72,20 +72,22 @@ public class FollowUpController {
 		conn.setRequestMethod("POST");
 		conn.setRequestProperty("Content-Type", type);
 		conn.setRequestProperty("Content-Length", String.valueOf(bytes.length));
-		conn.setRequestProperty("Ibm-Application-Secret", Config.MOBILE_DATA_APP_SECRET);
+		conn.setRequestProperty("Ibm-Application-Secret",
+				Config.MOBILE_DATA_APP_SECRET);
 		OutputStream os = conn.getOutputStream();
 		os.write(bytes);
 		os.flush();
 		os.close();
-		
+
 		int responseCode = conn.getResponseCode();
 		System.out.println("Response code " + responseCode);
 		System.out.println("\nSending 'POST' request");
-		
-		BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+		BufferedReader in = new BufferedReader(new InputStreamReader(
+				conn.getInputStream()));
 		String inputLine;
 		StringBuffer response = new StringBuffer();
- 
+
 		while ((inputLine = in.readLine()) != null) {
 			response.append(inputLine);
 		}

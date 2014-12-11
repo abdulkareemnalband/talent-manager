@@ -11,55 +11,54 @@ import com.ibm.personafusion.Config;
 import com.ibm.personafusion.model.Person;
 import com.ibm.personafusion.service.WatsonUserModeller;
 
-/** Handles the /api/viz API endpoint.
- *  Visualizes a person's personality traits.
- *  Requires 'fname' and 'lname' query parameters to search.
- *  Returns an HTML string of the visualization.
- *  @author Sean Welleck **/
+/**
+ * Handles the /api/viz API endpoint. Visualizes a person's personality traits.
+ * Requires 'fname' and 'lname' query parameters to search. Returns an HTML
+ * string of the visualization.
+ * 
+ * @author Sean Welleck
+ **/
 @Path("/viz")
-public class VizController 
-{
-	
+public class VizController {
+
 	/** Returns people results as a JSON string. **/
 	@GET
-	public Response handleViz(@Context UriInfo ui)
-	{
+	public Response handleViz(@Context UriInfo ui) {
 		MultivaluedMap<String, String> queryParams = ui.getQueryParameters();
 		String fname = SearchController.getParam("fname", queryParams);
 		String lname = SearchController.getParam("lname", queryParams);
-		
-		if (fname == null || lname == null)
-		{
+
+		if (fname == null || lname == null) {
 			return error();
 		}
-		
+
 		String fullName = fname + " " + lname;
 		System.out.println("fname=" + fname + " lname=" + lname);
-		
+
 		Person p = Config.cc.getPerson(fullName.toUpperCase());
-		if (p == null)
-		{
+		if (p == null) {
 			return error();
 		}
-		
+
 		WatsonUserModeller WUM = new WatsonUserModeller();
 		String vizHTML = WUM.getPersonVizHTML(p);
-		
-		if (vizHTML == null)
-		{
+
+		if (vizHTML == null) {
 			return error();
 		}
-		
-		return Response.ok(vizHTML).header("Access-Control-Allow-Origin", "*")
-	            .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-	            .build();
-	}
-	
-	private Response error()
-	{
-		return Response.serverError()
+
+		return Response
+				.ok(vizHTML)
 				.header("Access-Control-Allow-Origin", "*")
-	            .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-	            .build();
+				.header("Access-Control-Allow-Methods",
+						"GET, POST, DELETE, PUT").build();
+	}
+
+	private Response error() {
+		return Response
+				.serverError()
+				.header("Access-Control-Allow-Origin", "*")
+				.header("Access-Control-Allow-Methods",
+						"GET, POST, DELETE, PUT").build();
 	}
 }

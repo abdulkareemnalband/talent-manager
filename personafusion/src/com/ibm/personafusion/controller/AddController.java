@@ -11,45 +11,44 @@ import com.ibm.personafusion.Constants;
 import com.ibm.personafusion.model.AddPersonRequest;
 import com.ibm.personafusion.model.Person;
 
-/** Handles the POST /api/add endpoint.
- *  Returns status 204 if a person was successfully added. 
- *  @author Sean Welleck **/
+/**
+ * Handles the POST /api/add endpoint. Returns status 204 if a person was
+ * successfully added.
+ * 
+ * @author Sean Welleck
+ **/
 @Path("/add")
-public class AddController 
-{
+public class AddController {
 	/** Create a new Person. **/
 	@POST
 	@Consumes(MediaType.TEXT_PLAIN)
-	public Response handle(String json)
-	{
+	public Response handle(String json) {
 		System.out.println(json);
 		Person p = personFromRequest(json);
 		System.out.println(p);
 		Config.cc.putPerson(p);
 		addToGlobalList(p);
-		return Response.ok(p.toString()).header("Access-Control-Allow-Origin", "*")
-	            .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-	            .build();
-	 }
-	
-	protected static Person personFromRequest(String json)
-	{
+		return Response
+				.ok(p.toString())
+				.header("Access-Control-Allow-Origin", "*")
+				.header("Access-Control-Allow-Methods",
+						"GET, POST, DELETE, PUT").build();
+	}
+
+	protected static Person personFromRequest(String json) {
 		AddPersonRequest apr = JsonUtils.getAPRFromJson(json);
 		Person p = AddPersonRequest.toPerson(apr);
 		return p;
 	}
-	
-	protected static void addToGlobalList(Person p)
-	{
-		if (p == null || p.group == null) return;
-		if (p.group.equals(Constants.CURRENT_EMPLOYEES_GROUP))
-		{
+
+	protected static void addToGlobalList(Person p) {
+		if (p == null || p.group == null)
+			return;
+		if (p.group.equals(Constants.CURRENT_EMPLOYEES_GROUP)) {
 			PeopleController.people.add(p);
-		}
-		else
-		{
+		} else {
 			SearchController.people.add(p);
 		}
 	}
-	
+
 }
