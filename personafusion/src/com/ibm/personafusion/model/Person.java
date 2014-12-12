@@ -39,9 +39,9 @@ public class Person implements Comparable<Person> {
 		this.resumeInfo = resumeInfo;
 		this.role = role;
 		// Set default weights
-		this.weightTraits = 1;
-		this.weightResume = 1;
-		this.weightRole = 1;
+		Person.weightTraits = 1;
+		Person.weightResume = 1;
+		Person.weightRole = 1;
 		this.image_url = image_url;
 		this.qaResponses = new ArrayList<String>();
 		this.keyWords = keyWords;
@@ -51,11 +51,10 @@ public class Person implements Comparable<Person> {
 		this.name = name;
 		this.traits = traits;
 		this.resumeInfo = resumeInfo;
-		this.role = role;
 		// Set default weights
-		this.weightTraits = 1;
-		this.weightResume = 1;
-		this.weightRole = 1;
+		Person.weightTraits = 1;
+		Person.weightResume = 1;
+		Person.weightRole = 1;
 		this.image_url = "";
 		this.role = Role.DEV;
 		this.qaResponses = new ArrayList<String>();
@@ -63,7 +62,7 @@ public class Person implements Comparable<Person> {
 	}
 
 	public void setQueryPerson(Person p) {
-		this.queryPerson = p;
+		Person.queryPerson = p;
 	}
 
 	public String toString() {
@@ -79,9 +78,9 @@ public class Person implements Comparable<Person> {
 
 	public void setDistanceWeights(double weightTraits, double weightResume,
 			double weightRole) {
-		this.weightTraits = weightTraits;
-		this.weightResume = weightResume;
-		this.weightRole = weightRole;
+		Person.weightTraits = weightTraits;
+		Person.weightResume = weightResume;
+		Person.weightRole = weightRole;
 	}
 
 	/*
@@ -89,10 +88,11 @@ public class Person implements Comparable<Person> {
 	 */
 	public List<String> getKeyWords(int nMostFrequent) {
 		List<String> stopWords = new ArrayList<String>();
+		Scanner sc = null;
 		try {
 			URL url = new URL(
 					"https://dl.dropboxusercontent.com/u/27101002/personafusion/stopWords.txt");
-			Scanner sc = new Scanner(url.openStream());
+			 sc= new Scanner(url.openStream());
 			while (sc.hasNextLine()) {
 				String word = sc.nextLine();
 				word = word.trim();
@@ -100,6 +100,8 @@ public class Person implements Comparable<Person> {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally{
+			sc.close();
 		}
 
 		List<String> keyWords = new ArrayList<String>();
@@ -169,24 +171,24 @@ public class Person implements Comparable<Person> {
 
 		double distance = 0, distanceTraits = 0, distanceResume = 0, distanceRole = 0;
 
-		for (int i = 0; i < this.queryPerson.traits.size(); i++) {
-			String queryTraitName = this.queryPerson.traits.get(i).traitName;
-			double queryTraitPercent = this.queryPerson.traits.get(i).percent;
+		for (int i = 0; i < Person.queryPerson.traits.size(); i++) {
+			String queryTraitName = Person.queryPerson.traits.get(i).traitName;
+			double queryTraitPercent = Person.queryPerson.traits.get(i).percent;
 			distanceTraits += this.getTraitDistance(queryTraitName,
 					queryTraitPercent);
 		}
 
 		double distanceTechSkills = 0, distancePastEmployers = 0;
-		for (int i = 0; i < this.queryPerson.resumeInfo.techSkills.size(); i++) {
+		for (int i = 0; i < Person.queryPerson.resumeInfo.techSkills.size(); i++) {
 			// if all query tech skills exist in this person distance is 0
 			// distance grows as skills dont match
-			String techSkill = this.queryPerson.resumeInfo.techSkills.get(i);
+			String techSkill = Person.queryPerson.resumeInfo.techSkills.get(i);
 			if (!this.resumeInfo.techSkills.contains(techSkill))
 				distanceTechSkills++;
 
 		}
-		for (int i = 0; i < this.queryPerson.resumeInfo.pastEmployers.size(); i++) {
-			String pastEmployer = this.queryPerson.resumeInfo.pastEmployers
+		for (int i = 0; i < Person.queryPerson.resumeInfo.pastEmployers.size(); i++) {
+			String pastEmployer = Person.queryPerson.resumeInfo.pastEmployers
 					.get(i);
 			if (!this.resumeInfo.techSkills.contains(pastEmployer))
 				distancePastEmployers++;
@@ -194,7 +196,7 @@ public class Person implements Comparable<Person> {
 		distanceResume = (.75 * distancePastEmployers)
 				+ (.25 * distanceTechSkills);
 
-		if (!this.queryPerson.role.equals(this.role))
+		if (!Person.queryPerson.role.equals(this.role))
 			distanceRole = 1;
 
 		distance = (weightTraits * distanceTraits)

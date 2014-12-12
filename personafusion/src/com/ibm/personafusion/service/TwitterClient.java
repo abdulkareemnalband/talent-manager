@@ -99,6 +99,7 @@ public class TwitterClient {
 		out.close();
 	}
 
+	@SuppressWarnings("unused")
 	private void downloadData() throws IOException, TwitterException {
 		this.downloadTweetsFromUsers("dev_usernames.txt", "dev_tweets.txt",
 				10000);
@@ -107,6 +108,7 @@ public class TwitterClient {
 	}
 
 	public static void main(String[] args) throws TwitterException, IOException {
+		@SuppressWarnings("unused")
 		TwitterClient tc = new TwitterClient();
 	}
 }

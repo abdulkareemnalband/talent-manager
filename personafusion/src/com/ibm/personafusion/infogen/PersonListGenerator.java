@@ -195,11 +195,11 @@ public class PersonListGenerator {
 
 	public static Set<String> getNameList() {
 		Set<String> result = new HashSet<String>();
-
+		Scanner scan=null;
 		try {
 			URL url = new URL(
 					"https://dl.dropboxusercontent.com/u/27101002/personafusion/output.txt");
-			Scanner scan = new Scanner(url.openStream());
+			scan = new Scanner(url.openStream());
 			while (scan.hasNextLine()) {
 				String line = scan.nextLine();
 				result.add(line);
@@ -210,6 +210,9 @@ public class PersonListGenerator {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		finally{
+			scan.close();
 		}
 
 		return result;

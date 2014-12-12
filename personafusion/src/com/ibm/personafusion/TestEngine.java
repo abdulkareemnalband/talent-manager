@@ -1,14 +1,14 @@
 package com.ibm.personafusion;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.relation.Role;
+//import javax.management.relation.Role;
 
-import com.ibm.personafusion.controller.JsonUtils;
-import com.ibm.personafusion.infogen.PersonListGenerator;
-import com.ibm.personafusion.model.Person;
-import com.ibm.personafusion.model.ResumeInfo;
+//import com.ibm.personafusion.controller.JsonUtils;
+//import com.ibm.personafusion.infogen.PersonListGenerator;
+//import com.ibm.personafusion.model.Person;
+//import com.ibm.personafusion.model.ResumeInfo;
 import com.ibm.personafusion.model.Trait;
 
 public class TestEngine {

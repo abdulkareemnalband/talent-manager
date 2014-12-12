@@ -2,9 +2,10 @@ package com.ibm.personafusion;
 
 import java.util.ArrayList;
 import java.util.Collections;
+//import java.util.Comparator;
 import java.util.List;
 
-import com.ibm.personafusion.controller.SearchController;
+//import com.ibm.personafusion.controller.SearchController;
 import com.ibm.personafusion.db.CloudantClient;
 import com.ibm.personafusion.model.Person;
 
