@@ -2,7 +2,7 @@
 
     <ul class="candidate-group">
 
-      <li class="candidate-item" ng-repeat="candidate in filteredCandidates | orderBy:'distToQueryPerson':true track by $index" ng-show="candidate.visible" ng-click="toggleExpanded(candidate)">
+      <li class="candidate-item" ng-repeat="candidate in filteredCandidates | orderBy:'distToQueryPerson':false track by $index" ng-show="candidate.visible" ng-click="toggleExpanded(candidate)">
 
        <!-- Potential Candidates -->
 

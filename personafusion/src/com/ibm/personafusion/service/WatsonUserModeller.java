@@ -41,7 +41,7 @@ public class WatsonUserModeller {
 	private JSONObject watsonCredentials;
 
 	public WatsonUserModeller() {
-		// TODO read env VCAP_SERVICES and parse it into JSON
+		// read env VCAP_SERVICES and parse it into JSON
 
 		try {
 			String VCAP_SERVICES = System.getenv("VCAP_SERVICES");
@@ -62,6 +62,7 @@ public class WatsonUserModeller {
 		if (this.executor == null) {
 			System.err.println("Authentication failed in WatsonUserModeller.");
 		}
+		System.out.println("WatsonUserModeller Insantiated");
 	}
 
 	/**

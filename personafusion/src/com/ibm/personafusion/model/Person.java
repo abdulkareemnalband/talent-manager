@@ -61,7 +61,7 @@ public class Person implements Comparable<Person> {
 		this.keyWords = new ArrayList<String>();
 	}
 
-	public void setQueryPerson(Person p) {
+	public static void setQueryPerson(Person p) {
 		Person.queryPerson = p;
 	}
 
@@ -218,7 +218,8 @@ public class Person implements Comparable<Person> {
 		}
 		return distance;
 	}
-
+	//
+	@Override
 	public int compareTo(Person other) {
 		// sort bases off min distance from query perosn
 		// weight different distances between resume skills, traits, and role
@@ -231,4 +232,15 @@ public class Person implements Comparable<Person> {
 		else
 			return 0;
 	}
+	//*/
+	
+	/*/
+	@Override
+	public int compareTo(Person other)
+	{
+		this.getDistanceToQueryPerson();
+		other.getDistanceToQueryPerson();
+		return 0;
+	}
+	//*/
 }

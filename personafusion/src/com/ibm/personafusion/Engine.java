@@ -37,15 +37,20 @@ public class Engine {
 		// get person with the person name
 
 		// Here's the changed new code
-		CloudantClient cc = new CloudantClient();
+		/*CloudantClient cc = new CloudantClient();
 		for (Person p : people) {
 			Person queriedPer = cc.getPerson(personName);
 			if (queriedPer == null)
 				System.out.println("queriedPerson is null");
 			p.setQueryPerson(queriedPer);
 			// p.setDistanceWeights(.5, 0, .5);
-		}
+		}*/
 
+		CloudantClient cc = new CloudantClient();
+		Person queriedPer = cc.getPerson(personName);
+		if (queriedPer == null)
+			System.out.println("queriedPerson is null");
+		Person.setQueryPerson(queriedPer);
 		// this.setQueryPerson(this.getPersonGivenName(personName));
 		// System.out.println("Set person's name: " + this.people.get(0).name);
 		// this.setDistanceWeights(.5, 0 , .5);
@@ -78,7 +83,7 @@ public class Engine {
 	}
 
 	void setQueryPerson(Person p) {
-		people.get(0).setQueryPerson(p);
+		Person.setQueryPerson(p);
 	}
 
 	void setDistanceWeights(double weightTraits, double weightResume,
